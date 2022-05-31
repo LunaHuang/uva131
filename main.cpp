@@ -151,7 +151,6 @@ int Poker::kind_test()
         int check_num = count;
         if (count == 4) {
             for (int i = 0; i < poker_num_.size(); i++) {
-                //				std::cout << "i " << i << " " << hand_num<< std::endl;
                 if (poker_num_[i] == it) {
                     if (i < HAND_NUM) {
                         hand_num++;
@@ -159,7 +158,6 @@ int Poker::kind_test()
                         continue;
                     }
                     if (i > (4 - hand_num + DECK_START_NUM)) {
-                        //						std::cout << "fail 1" << std::endl;
                         break;
                     }
                     check_num--;
@@ -169,7 +167,6 @@ int Poker::kind_test()
             }
         } else if (count == 3) {
             for (int i = 0; i < poker_num_.size(); i++) {
-          //      std::cout << "i " << i << " " << hand_num << std::endl;
                 if (poker_num_[i] == it) {
                     if (i < HAND_NUM) {
                         hand_num++;
@@ -194,7 +191,6 @@ int Poker::kind_test()
                         continue;
                     }
                     if (i > (4 - hand_num + DECK_START_NUM)) {
-                        //						std::cout << "fail" << std::endl;
                         break;
                     }
                     check_num--;
