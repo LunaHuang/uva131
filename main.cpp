@@ -24,7 +24,7 @@ enum Level {
     High_card,
 };
 
-#define DESK_START_NUM 5
+#define DECK_START_NUM 5
 #define HAND_NUM       5
 class Poker
 {
@@ -92,7 +92,7 @@ int Poker::flush_straight_test()
     for (auto &it : suit) {
         int count = std::count(poker_suit_.begin(), poker_suit_.end(), it);
         int hand_num = 0;
-        int desk_num = 0;
+        int deck_num = 0;
         if (count >= 5) {
             std::vector< int > matches;
             for (int i = 0; i < poker_suit_.size(); i++) {
@@ -103,16 +103,16 @@ int Poker::flush_straight_test()
                     }
                     continue;
                 } else {
-                    if ((poker_suit_[i] != it) && ((desk_num + hand_num) < 5)) {
+                    if ((poker_suit_[i] != it) && ((deck_num + hand_num) < 5)) {
                         break;
                     }
                     if (poker_suit_[i] == it) {
-                        if (i >= (count - hand_num + DESK_START_NUM)) {
+                        if (i >= (count - hand_num + DECK_START_NUM)) {
                             break;
                         } else {
                             matches.push_back(poker_num_[i]);
-                            desk_num++;
-                            if ((desk_num + hand_num) >= 5)
+                            deck_num++;
+                            if ((deck_num + hand_num) >= 5)
                                 ret = Level::Flush;
                         }
                     }
@@ -158,7 +158,7 @@ int Poker::kind_test()
                         check_num--;
                         continue;
                     }
-                    if (i > (4 - hand_num + DESK_START_NUM)) {
+                    if (i > (4 - hand_num + DECK_START_NUM)) {
                         //						std::cout << "fail 1" << std::endl;
                         break;
                     }
@@ -176,7 +176,7 @@ int Poker::kind_test()
                         check_num--;
                         continue;
                     }
-                    if (i > (4 - hand_num + DESK_START_NUM)) {
+                    if (i > (4 - hand_num + DECK_START_NUM)) {
                         std::cout << "fail 2" << std::endl;
                         break;
                     }
@@ -193,7 +193,7 @@ int Poker::kind_test()
                         check_num--;
                         continue;
                     }
-                    if (i > (4 - hand_num + DESK_START_NUM)) {
+                    if (i > (4 - hand_num + DECK_START_NUM)) {
                         //						std::cout << "fail" << std::endl;
                         break;
                     }
@@ -225,7 +225,7 @@ int Poker::other_test()
                 if (poker_num_[num] == it){
 					if (num < HAND_NUM)
                         hand_num++;
-                    if (num > (4 - hand_num + DESK_START_NUM))
+                    if (num > (4 - hand_num + DECK_START_NUM))
                         break;
                     count--;
 					if (count == 0)
@@ -250,7 +250,7 @@ int Poker::other_test()
                 if (poker_num_[num] == it){
 					if (num < HAND_NUM)
                         hand_num++;
-                    if (num > (4 - hand_num + DESK_START_NUM))
+                    if (num > (4 - hand_num + DECK_START_NUM))
                         break;
                     count--;
 					if (count == 0)
@@ -302,16 +302,16 @@ bool Poker::straight_test()
     }
     if (count != 5)
         return false;
-    std::vector< int > desk_num;
+    std::vector< int > deck_num;
     for (int i = 0; i < count; i++) {
         std::vector< int >::iterator it = std::find(poker_num_.begin(), poker_num_.begin() + HAND_NUM, last - i);
         if (it == poker_num_.begin() + HAND_NUM) {
-            desk_num.push_back(last - i);
+            deck_num.push_back(last - i);
         }
     }
-    for (int i = 0; i < desk_num.size(); i++) {
-        std::vector< int >::iterator it = std::find(poker_num_.begin(), poker_num_.begin() + HAND_NUM + desk_num.size(), desk_num[i]);
-        if (it == poker_num_.begin() + HAND_NUM + desk_num.size()) {
+    for (int i = 0; i < deck_num.size(); i++) {
+        std::vector< int >::iterator it = std::find(poker_num_.begin(), poker_num_.begin() + HAND_NUM + deck_num.size(), deck_num[i]);
+        if (it == poker_num_.begin() + HAND_NUM + deck_num.size()) {
             return false;
         }
     }
