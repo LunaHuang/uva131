@@ -211,61 +211,60 @@ int Poker::other_test()
     std::vector< int > number { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
     for (auto &it : number) {
         int count = std::count(poker_num_.begin(), poker_num_.end(), it);
-		if(count >= 3){
-			int hand_num = 0;
-			int num = 0;
-			std::map< int, int > candidate_value;
-			int more_count = count - 3;
-			count = 3;
+        if (count >= 3) {
+            int hand_num = 0;
+            int num = 0;
+            std::map< int, int > candidate_value;
+            int more_count = count - 3;
+            count = 3;
             for (num = 0; num < poker_num_.size(); num++) {
-                if (poker_num_[num] == it){
-					if (num < HAND_NUM)
+                if (poker_num_[num] == it) {
+                    if (num < HAND_NUM)
                         hand_num++;
                     if (num > (4 - hand_num + DECK_START_NUM))
                         break;
                     count--;
-					if (count == 0)
-						break;
-				} else
-					candidate_value[poker_num_[num]]++;
-			}
-			for (std::map< int, int >::iterator it = candidate_value.begin(); it != candidate_value.end(); ++it) {
-				if(it->second >= 2){
-					int count_sec = std::count(poker_num_.begin(), poker_num_.begin()+HAND_NUM, it->first);
-					if((num + hand_num + count_sec) < poker_num_.size())
-						return Level::Full_house;
-				}
-			}
-		}
-		if(count >= 2){
-			int hand_num = 0;
-			int num = 0;
-			std::map< int, int > candidate_value;
-			count = 2;
+                    if (count == 0)
+                        break;
+                } else
+                    candidate_value[poker_num_[num]]++;
+            }
+            for (std::map< int, int >::iterator it = candidate_value.begin(); it != candidate_value.end(); ++it) {
+                if (it->second >= 2) {
+                    int count_sec = std::count(poker_num_.begin(), poker_num_.begin() + HAND_NUM, it->first);
+                    if ((num + hand_num + count_sec) < poker_num_.size())
+                        return Level::Full_house;
+                }
+            }
+        }
+        if (count >= 2) {
+            int hand_num = 0;
+            int num = 0;
+            std::map< int, int > candidate_value;
+            count = 2;
             for (num = 0; num < poker_num_.size(); num++) {
-                if (poker_num_[num] == it){
-					if (num < HAND_NUM)
+                if (poker_num_[num] == it) {
+                    if (num < HAND_NUM)
                         hand_num++;
                     if (num > (4 - hand_num + DECK_START_NUM))
                         break;
                     count--;
-					if (count == 0)
-						break;
-				} else
-					candidate_value[poker_num_[num]]++;
-			}
-			for (std::map< int, int >::iterator it = candidate_value.begin(); it != candidate_value.end(); ++it) {
-				if(it->second >= 2){
-					int count_sec = std::count(poker_num_.begin(), poker_num_.begin()+HAND_NUM, it->first);
-					if((num + hand_num + count_sec) < poker_num_.size())
-						if (ret > Level::Two_pairs)
-							ret = Level::Two_pairs;
-				}
-			}
-		}
-
+                    if (count == 0)
+                        break;
+                } else
+                    candidate_value[poker_num_[num]]++;
+            }
+            for (std::map< int, int >::iterator it = candidate_value.begin(); it != candidate_value.end(); ++it) {
+                if (it->second >= 2) {
+                    int count_sec = std::count(poker_num_.begin(), poker_num_.begin() + HAND_NUM, it->first);
+                    if ((num + hand_num + count_sec) < poker_num_.size())
+                        if (ret > Level::Two_pairs)
+                            ret = Level::Two_pairs;
+                }
+            }
+        }
     }
-	return ret;
+    return ret;
 }
 
 bool Poker::straight_test()
